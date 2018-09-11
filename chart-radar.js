@@ -1,12 +1,4 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
-<link rel="import" href="chart-js-import.html">
-<link rel="import" href="chart-property-behavior.html">
-<link rel="import" href="context-behavior.html">
-<link rel="import" href="resize-behavior.html">
-
-
-<!--
+/**
 A radar chart is a way of showing multiple data points and the variation between them.
 
 They are often useful for comparing the points of two or more different data sets.
@@ -46,37 +38,39 @@ They are often useful for comparing the points of two or more different data set
 @group Chart Elements
 @element chart-radar
 @demo demo/chart-radar.html
--->
+*/
+/*
+  FIXME(polymer-modulizer): the above comments were extracted
+  from HTML and may be out of place here. Review them and
+  then delete this comment!
+*/
+import '@polymer/polymer/polymer-legacy.js';
 
-<link rel="import" href="chart-styles.html">
-<dom-module id="chart-radar">
-
-  <template>
-
+import '@polymer/iron-resizable-behavior/iron-resizable-behavior.js';
+import './chart-js-import.js';
+import './chart-property-behavior.js';
+import './context-behavior.js';
+import './resize-behavior.js';
+import './chart-styles.js';
+Polymer({
+  _template: Polymer.html`
     <style include="chart-styles"></style>
 
     <div>
       <canvas id="canvas"></canvas>
     </div>
+`,
 
-  </template>
+  is: 'chart-radar',
 
-  <script>
-    Polymer({
+  behaviors: [
+    Polymer.IronResizableBehavior,
+    ChartBehaviors.ChartPropertyBehavior,
+    ChartBehaviors.ContextBehavior,
+    ChartBehaviors.ResizeBehavior
+  ],
 
-      is: 'chart-radar',
-
-      behaviors: [
-        Polymer.IronResizableBehavior,
-        ChartBehaviors.ChartPropertyBehavior,
-        ChartBehaviors.ContextBehavior,
-        ChartBehaviors.ResizeBehavior
-      ],
-
-      ready: function() {
-        this._setType('radar');
-      }
-
-    });
-  </script>
-</dom-module>
+  ready: function() {
+    this._setType('radar');
+  }
+});

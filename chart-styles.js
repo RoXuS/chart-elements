@@ -1,4 +1,6 @@
-<dom-module id="chart-styles">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<dom-module id="chart-styles">
 
   <template>
 
@@ -20,4 +22,6 @@
 
   </template>
 
-</dom-module>
+</dom-module>`;
+
+document.head.appendChild($_documentContainer.content);

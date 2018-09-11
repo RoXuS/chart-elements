@@ -1,11 +1,4 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
-<link rel="import" href="chart-js-import.html">
-<link rel="import" href="chart-property-behavior.html">
-<link rel="import" href="context-behavior.html">
-<link rel="import" href="resize-behavior.html">
-
-<!--
+/**
 Polar area charts are similar to pie charts, but each segment has the same angle - the radius of the segment differs depending on the value.
 
 This type of chart is often useful when we want to show a comparison data similar to a pie chart, but also show a scale of values for context.
@@ -40,37 +33,39 @@ This type of chart is often useful when we want to show a comparison data simila
 @group Chart Elements
 @element chart-polar-area
 @demo demo/chart-polar-area.html
--->
+*/
+/*
+  FIXME(polymer-modulizer): the above comments were extracted
+  from HTML and may be out of place here. Review them and
+  then delete this comment!
+*/
+import '@polymer/polymer/polymer-legacy.js';
 
-<link rel="import" href="chart-styles.html">
-<dom-module id="chart-polar-area">
-
-  <template>
-
+import '@polymer/iron-resizable-behavior/iron-resizable-behavior.js';
+import './chart-js-import.js';
+import './chart-property-behavior.js';
+import './context-behavior.js';
+import './resize-behavior.js';
+import './chart-styles.js';
+Polymer({
+  _template: Polymer.html`
     <style include="chart-styles"></style>
 
     <div>
       <canvas id="canvas"></canvas>
     </div>
+`,
 
-  </template>
+  is: 'chart-polar-area',
 
-  <script>
-    Polymer({
+  behaviors: [
+    Polymer.IronResizableBehavior,
+    ChartBehaviors.ChartPropertyBehavior,
+    ChartBehaviors.ContextBehavior,
+    ChartBehaviors.ResizeBehavior
+  ],
 
-      is: 'chart-polar-area',
-
-      behaviors: [
-        Polymer.IronResizableBehavior,
-        ChartBehaviors.ChartPropertyBehavior,
-        ChartBehaviors.ContextBehavior,
-        ChartBehaviors.ResizeBehavior
-      ],
-
-      ready: function() {
-        this._setType('polarArea');
-      }
-
-    });
-  </script>
-</dom-module>
+  ready: function() {
+    this._setType('polarArea');
+  }
+});

@@ -1,11 +1,4 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
-<link rel="import" href="chart-js-import.html">
-<link rel="import" href="chart-property-behavior.html">
-<link rel="import" href="context-behavior.html">
-<link rel="import" href="resize-behavior.html">
-
-<!--
+/**
 Pie and doughnut charts are probably the most commonly used chart there are. They are divided into segments, the arc of each segment shows a the proportional value of each piece of data.
 
 They are excellent at showing the relational proportions between data.
@@ -45,38 +38,39 @@ They are also registered under two aliases in the Chart core. Other than their d
 @group Chart Elements
 @element chart-pie
 @demo demo/chart-pie.html
--->
+*/
+/*
+  FIXME(polymer-modulizer): the above comments were extracted
+  from HTML and may be out of place here. Review them and
+  then delete this comment!
+*/
+import '@polymer/polymer/polymer-legacy.js';
 
-<link rel="import" href="chart-styles.html">
-<dom-module id="chart-pie">
-
-  <template>
-
+import '@polymer/iron-resizable-behavior/iron-resizable-behavior.js';
+import './chart-js-import.js';
+import './chart-property-behavior.js';
+import './context-behavior.js';
+import './resize-behavior.js';
+import './chart-styles.js';
+Polymer({
+  _template: Polymer.html`
     <style include="chart-styles"></style>
 
     <div>
       <canvas id="canvas"></canvas>
     </div>
+`,
 
-  </template>
+  is: 'chart-pie',
 
-  <script>
-    Polymer({
+  behaviors: [
+    Polymer.IronResizableBehavior,
+    ChartBehaviors.ChartPropertyBehavior,
+    ChartBehaviors.ContextBehavior,
+    ChartBehaviors.ResizeBehavior
+  ],
 
-      is: 'chart-pie',
-
-      behaviors: [
-        Polymer.IronResizableBehavior,
-        ChartBehaviors.ChartPropertyBehavior,
-        ChartBehaviors.ContextBehavior,
-        ChartBehaviors.ResizeBehavior
-      ],
-
-      ready: function() {
-        this._setType('pie');
-      }
-
-    });
-  </script>
-
-</dom-module>
+  ready: function() {
+    this._setType('pie');
+  }
+});

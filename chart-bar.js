@@ -1,18 +1,11 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
-<link rel="import" href="chart-js-import.html">
-<link rel="import" href="chart-property-behavior.html">
-<link rel="import" href="context-behavior.html">
-<link rel="import" href="resize-behavior.html">
-
-<!--
+/**
 A bar chart is a way of showing data as bars.
 
 It is sometimes used to show trend data, and the comparison of multiple data sets side by side.
 
 ##### Example
 
-    <chart-horizontal-bar data="[[data]]"></chart-horizontal-bar>
+    <chart-bar data="[[data]]"></chart-bar>
 
     ...
 
@@ -39,38 +32,39 @@ It is sometimes used to show trend data, and the comparison of multiple data set
 @group Chart Elements
 @element chart-bar
 @demo demo/chart-bar.html
--->
+*/
+/*
+  FIXME(polymer-modulizer): the above comments were extracted
+  from HTML and may be out of place here. Review them and
+  then delete this comment!
+*/
+import '@polymer/polymer/polymer-legacy.js';
 
-<link rel="import" href="chart-styles.html">
-<dom-module id="chart-horizontal-bar">
-
-  <template>
-
+import '@polymer/iron-resizable-behavior/iron-resizable-behavior.js';
+import './chart-js-import.js';
+import './chart-property-behavior.js';
+import './context-behavior.js';
+import './resize-behavior.js';
+import './chart-styles.js';
+Polymer({
+  _template: Polymer.html`
     <style include="chart-styles"></style>
 
     <div>
       <canvas id="canvas"></canvas>
     </div>
+`,
 
-  </template>
+  is: 'chart-bar',
 
-  <script>
-    Polymer({
+  behaviors: [
+    Polymer.IronResizableBehavior,
+    ChartBehaviors.ChartPropertyBehavior,
+    ChartBehaviors.ContextBehavior,
+    ChartBehaviors.ResizeBehavior
+  ],
 
-      is: 'chart-horizontal-bar',
-
-      behaviors: [
-        Polymer.IronResizableBehavior,
-        ChartBehaviors.ChartPropertyBehavior,
-        ChartBehaviors.ContextBehavior,
-        ChartBehaviors.ResizeBehavior
-      ],
-
-      ready: function() {
-        this._setType('horizontalBar');
-      }
-
-    });
-  </script>
-
-</dom-module>
+  ready: function() {
+    this._setType('bar');
+  }
+});

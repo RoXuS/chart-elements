@@ -1,11 +1,4 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
-<link rel="import" href="chart-js-import.html">
-<link rel="import" href="chart-property-behavior.html">
-<link rel="import" href="context-behavior.html">
-<link rel="import" href="resize-behavior.html">
-
-<!--
+/**
 A line chart is a way of plotting data points on a line.
 
 Often, it is used to show trend data, and the comparison of two data sets.
@@ -47,37 +40,35 @@ Often, it is used to show trend data, and the comparison of two data sets.
 @group Chart Elements
 @element chart-line
 @demo demo/chart-line.html
--->
+*/
 
-<link rel="import" href="chart-styles.html">
-<dom-module id="chart-line">
+import { Polymer } from '@polymer/polymer/polymer-legacy';
+import { html } from '@polymer/polymer/lib/utils/html-tag';
+import '@polymer/iron-resizable-behavior/iron-resizable-behavior';
+import ChartPropertyBehavior from './chart-property-behavior';
+import ContextBehavior from './context-behavior';
+import ResizeBehavior from './resize-behavior';
+import './chart-styles';
 
-  <template>
-
+Polymer({
+  _template: html`
     <style include="chart-styles"></style>
 
     <div>
       <canvas id="canvas"></canvas>
     </div>
+`,
 
-  </template>
+  is: 'chart-line',
 
-  <script>
-    Polymer({
+  behaviors: [
+    Polymer.IronResizableBehavior,
+    ChartPropertyBehavior,
+    ContextBehavior,
+    ResizeBehavior
+  ],
 
-      is: 'chart-line',
-
-      behaviors: [
-        Polymer.IronResizableBehavior,
-        ChartBehaviors.ChartPropertyBehavior,
-        ChartBehaviors.ContextBehavior,
-        ChartBehaviors.ResizeBehavior
-      ],
-
-      ready: function() {
-        this._setType('line');
-      }
-
-    });
-  </script>
-</dom-module>
+  ready: function () {
+    this._setType('line');
+  }
+});
